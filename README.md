@@ -7,8 +7,6 @@
 A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Talker and a Listener node.
 
 ## Contents
-
-
 <pre>├── include
 │   └── beginner_tutorials
 |      ├── publisher_function.hpp
@@ -22,6 +20,11 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 └── src
     ├── publisher_member_function.cpp
     └── subscriber_member_function.cpp</pre>
+
+## ROS2 Dependencies
+* ```ament_cmake```
+* ```rclcpp```
+* ```std_msgs```
 
 ## Instructions to Build the Package
 ```
