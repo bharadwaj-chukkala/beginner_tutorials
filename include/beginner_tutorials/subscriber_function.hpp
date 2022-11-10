@@ -1,6 +1,3 @@
-
-#pragma once
-
 /**
  * @file subscriber_function.hpp
  * @author Bharadwaj Chukkala (bchukkal@umd.edu)
@@ -11,6 +8,9 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#pragma once
+
+
 
 
 #include <memory>
