@@ -1,13 +1,15 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
----
 # ROS2 Publisher and Subscriber
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Overview
 
 A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Talker and a Listener node.
 
 ## Contents
-<pre>├── include
+
+<pre>
+├── include
 │   └── beginner_tutorials
 |      ├── publisher_function.hpp
 │      └── subscriber_function.hpp
@@ -20,21 +22,23 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 └── src
     ├── publisher_member_function.cpp
     └── subscriber_member_function.cpp</pre>
-    
+
 ## Assumptions
+
 * OS: Ubuntu Linux Focal (20.04) 64-bit
 * ROS2 Distro: Humble
 * ROS2 Workspace name: ros2_ws 
 * ROS2 Installation Directory: ros2_humble
 
 ## ROS2 Dependencies
+
 * ```ament_cmake```
 * ```rclcpp```
 * ```std_msgs```
 
 ## Instructions to Build the Package
-```
-cd <path-to-ROS2-workspace>/ros2_ws/src
+
+``` cd <path-to-ROS2-workspace>/ros2_ws/src
 git clone https://github.com/bharadwaj-chukkala/beginner_tutorials.git
 cd ..  
 rosdep install -i --from-path src --rosdistro humble -y
@@ -43,15 +47,17 @@ colcon build --packages-select beginner_tutorials
 
 ## Instructions to Run the Package
 
-### Run the Publisher 
+### Run the Publisher
+
 In a new terminal, navigate to your ROS2 workspace (```ros2_ws```) and source the setup files,
-```
-cd <path-to-ROS2-workspace>/ros2_ws
+``` 
+cd <path-to-ROS2-workspace>/ros2_ws/src
 . install/setup.bash
 ros2 run beginner_tutorials talker
 ```
 
 ### Run the Subscriber
+
 In another terminal, navigate to your ROS2 workspace (```ros2_ws```) and source the setup files,
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
@@ -62,8 +68,11 @@ ros2 run beginner_tutorials listener
 Enter ```Ctrl+c``` in each terminal to stop the nodes from spinning.
 
 ## Results
+
 ### Outputs
+
 #### Talker Node
+
 ```
 bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials (ros_pub_sub) $ ros2 run beginner_tutorials talker
 [INFO] [1668062183.614769978] [minimal_publisher]: Publishing: 'Hey, This is Bharadwaj, ID:  0'
@@ -80,6 +89,7 @@ bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials (ros_pub_sub) $ ros2
 ```
 
 #### Listener Node
+
 ```
 bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials (ros_pub_sub) $ ros2 run beginner_tutorials listener
 [INFO] [1668062186.614874934] [minimal_subscriber]: I heard: 'Hey, This is Bharadwaj, ID:  6'
@@ -90,7 +100,9 @@ bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials (ros_pub_sub) $ ros2
 ```
 
 ### Static Code Analysis
+
 #### cpplint 
+
 Change to the root directory of the package, ```/beginner_tutorials```, and run:
 ```
 cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/beginner_tutorials/*.hpp > ./results/cpplint.txt
@@ -98,6 +110,7 @@ cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_orde
 The results of running ```cpplint``` can be found in ```/results/cpplint.txt```.
 
 #### cppcheck
+
 Change to the root directory of the package, ```/beginner_tutorials```, and run:
 ```
 cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/beginner_tutorials/*.hpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
