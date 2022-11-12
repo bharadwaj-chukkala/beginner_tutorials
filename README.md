@@ -20,6 +20,12 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 └── src
     ├── publisher_member_function.cpp
     └── subscriber_member_function.cpp</pre>
+    
+## Assumptions
+* OS: Ubuntu Linux Focal (20.04) 64-bit
+* ROS2 Distro: Humble
+* ROS2 Workspace name: ros2_ws 
+* ROS2 Installation Directory: ros2_humble
 
 ## ROS2 Dependencies
 * ```ament_cmake```
