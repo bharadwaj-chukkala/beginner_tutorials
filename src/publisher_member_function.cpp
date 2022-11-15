@@ -19,6 +19,11 @@ MinimalPublisher::MinimalPublisher()
        publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
        timer_ = this->create_wall_timer(500ms,
         std::bind(&MinimalPublisher::timer_callback, this));
+
+        auto service_name = "add_two_ints";
+        auto serviceCallbackPtr = std::bind (&MinimalPublisher::add, this, _1, _2);
+        service = create_service<example_interfaces::srv::AddTwoInts>(service_name, serviceCallbackPtr);
+        
 }
 
 void MinimalPublisher::timer_callback() {
@@ -29,8 +34,21 @@ void MinimalPublisher::timer_callback() {
     publisher_->publish(message);
 }
 
+
+void MinimalPublisher::add(const std::shared_ptr<example_interfaces::srv::AddTwoInts::Request> request,
+          std::shared_ptr<example_interfaces::srv::AddTwoInts::Response>      response)
+{
+  response->sum = request->a + request->b;
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Incoming request\na: %ld" " b: %ld",
+                request->a, request->b);
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "sending back response: [%ld]", (long int)response->sum);
+}
+
 int main(int argc, char * argv[]) {
   rclcpp::init(argc, argv);
+  
+
+  //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Ready to add two ints.");
   rclcpp::spin(std::make_shared<MinimalPublisher>());
   rclcpp::shutdown();
   return 0;
