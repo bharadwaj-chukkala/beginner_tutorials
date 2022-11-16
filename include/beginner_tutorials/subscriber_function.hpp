@@ -30,4 +30,5 @@ class MinimalSubscriber : public rclcpp::Node {
  private:
   void topic_callback(const std_msgs::msg::String::SharedPtr msg) const;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+  //rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client;
 };

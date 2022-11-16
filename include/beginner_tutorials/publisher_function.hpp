@@ -37,4 +37,5 @@ class MinimalPublisher : public rclcpp::Node {
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
   rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr service;
   size_t count_;
+  size_t invalid;
 };
