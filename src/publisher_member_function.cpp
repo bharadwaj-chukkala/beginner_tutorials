@@ -17,21 +17,29 @@
 MinimalPublisher::MinimalPublisher()
     : Node("minimal_publisher"), count_(0) {
        publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
-       timer_ = this->create_wall_timer(500ms,
+       timer_ = this->create_wall_timer(1s,
         std::bind(&MinimalPublisher::timer_callback, this));
 
         auto service_name = "add_two_ints";
-        auto serviceCallbackPtr = std::bind (&MinimalPublisher::add, this, _1, _2);
+        auto serviceCallbackPtr = std::bind(&MinimalPublisher::add, this, _1, _2);
         service = create_service<example_interfaces::srv::AddTwoInts>(service_name, serviceCallbackPtr);
-        
 }
 
 void MinimalPublisher::timer_callback() {
     auto message = std_msgs::msg::String();
     message.data = "Hey, This is Bharadwaj, ID:  "
              + std::to_string(count_++);
-    RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+    RCLCPP_DEBUG_STREAM(this->get_logger(), "The Publisher is activated");
+    RCLCPP_INFO_STREAM(this->get_logger(), "Publishing:" << message.data.c_str());
     publisher_->publish(message);
+
+    if (count_ > 5) {
+      RCLCPP_WARN_STREAM(this->get_logger(), "Publisher has been running excessively");
+      }
+    
+    if (count_ > 10) {
+      RCLCPP_FATAL_STREAM(this->get_logger(), "Warnings were blindsided, Fatality Occured");
+    }
 }
 
 
@@ -39,6 +47,14 @@ void MinimalPublisher::add(const std::shared_ptr<example_interfaces::srv::AddTwo
           std::shared_ptr<example_interfaces::srv::AddTwoInts::Response>      response)
 {
   response->sum = request->a + request->b;
+
+  if(response->sum == request->a + request->b) {
+      // Error logging level
+      // This will ensure that a calculation mistake is caught
+      RCLCPP_ERROR_STREAM(this->get_logger(), "Response is wrong" << std::to_string(invalid++));
+      return;
+  }
+
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Incoming request\na: %ld" " b: %ld",
                 request->a, request->b);
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "sending back response: [%ld]", (long int)response->sum);
