@@ -1,40 +1,47 @@
-# ROS2 Publisher and Subscriber
+# ROS2 Services, Logging and Launch files
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Overview
 
-A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Talker and a Listener node.
+A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Publisher node with a service to add two integers.
+The service will be demonstrated using a service call for testing, which then can also be called to run when we run a client node in another terminal while running the publisher node.
 
 ## Contents
 
 <pre>
+.
+├── example_interfaces
+│   └── AddTwoInts.srv
 ├── include
 │   └── beginner_tutorials
-|      ├── publisher_function.hpp
-│      └── subscriber_function.hpp
-├── results
-│   ├── cppcheck.txt
-│   └── cpplint.txt
+│       ├── publisher_function.hpp
+│       └── subscriber_function.hpp
+├── LICENSE
 ├── package.xml
 ├── CMakeLists.txt
 ├── README.md
+├── results
+│   ├── cppcheck.txt
+│   └── cpplint.txt
 └── src
+    ├── client_node.cpp
     ├── publisher_member_function.cpp
     └── subscriber_member_function.cpp</pre>
 
 ## Assumptions
 
-* OS: Ubuntu Linux Focal (20.04) 64-bit
+* OS: Ubuntu Jammy Jellyfish (22.04) 64-bit
 * ROS2 Distro: Humble
-* ROS2 Workspace name: ros2_ws 
-* ROS2 Installation Directory: ros2_humble
+* ROS2 Workspace name: ros2_ws
+* ROS2 Installation Directory: ros2_humble [if installed through source]
 
 ## ROS2 Dependencies
 
 * ```ament_cmake```
 * ```rclcpp```
 * ```std_msgs```
+* ```example_interfaces```
 
 ## Instructions to Build the Package
 
@@ -65,7 +72,7 @@ cd <path-to-ROS2-workspace>/ros2_ws
 ros2 run beginner_tutorials listener
 ```
 
-Enter ```Ctrl+c``` in each terminal to stop the nodes from spinning.
+Enter ```Ctrl+C``` in each terminal to stop the nodes from spinning.
 
 ## Results
 
