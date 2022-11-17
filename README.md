@@ -29,7 +29,7 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
     ├── client_node.cpp
     ├── publisher_member_function.cpp
     ├── publisher_parameter_node.cpp
-    └── subscriber_member_function.cpp
+    └── subscriber_member_function.cpp</pre>
 
 ## Assumptions
 
