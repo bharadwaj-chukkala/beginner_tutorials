@@ -1,4 +1,8 @@
+Done processing ./include/beginner_tutorials/pub_param_function.hpp
 Done processing ./include/beginner_tutorials/publisher_function.hpp
 Done processing ./include/beginner_tutorials/subscriber_function.hpp
+Done processing ./src/client_node.cpp
 Done processing ./src/publisher_member_function.cpp
+Done processing ./src/publisher_parameter_node.cpp
 Done processing ./src/subscriber_member_function.cpp
+Total errors found: 20
