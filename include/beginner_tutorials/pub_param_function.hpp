@@ -1,12 +1,14 @@
+#ifndef INCLUDE_BEGINNER_TUTORIALS_PUB_PARAM_FUNCTION_HPP_
+#define BEGINNER_TUTORIALS_PUB_PARAM_FUNCTION_HPP_
 /**
- * @file subscriber_function.hpp
+ * @file publisher_param_function.hpp
  * @author Bharadwaj Chukkala (bchukkal@umd.edu)
- * @brief Object Oriented Subscriber Implementation for ROS2
+ * @brief Object Oriented publisher parameter Implementation for ROS2
  * @version 0.1
  * @date 2022-11-10
  * 
- * @copyright Copyright (c) 2022
- *  // Copyright 2016 Open Source Robotics Foundation, Inc.
+ * @copyright 
+*   // Copyright 2016 Open Source Robotics Foundation, Inc.
     //
     // Licensed under the Apache License, Version 2.0 (the "License");
     // you may not use this file except in compliance with the License.
@@ -20,23 +22,37 @@
     // See the License for the specific language governing permissions and
     // limitations under the License.
  */
-#pragma once
 
-#include <memory>
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
 
-using std::placeholders::_1;
+# pragma once
+#include <chrono>
+#include <functional>
+#include <string>
+
+#include <rclcpp/rclcpp.hpp>
+
+using namespace std::chrono_literals;
 
 /**
- * @brief Class (subclass of Node) and registers a member function as a callback from the topic.
+ * @brief Class Minimal Param
  * 
  */
-class MinimalSubscriber : public rclcpp::Node {
+class MinimalParam : public rclcpp::Node {
  public:
-    MinimalSubscriber();
+  /**
+   * @brief Construct a new Minimal Param object
+   * 
+   */
+  MinimalParam();
+
+  /**
+   * @brief timer callback function
+   * 
+   */
+  void timer_callback();
 
  private:
-  void topic_callback(const std_msgs::msg::String::SharedPtr msg) const;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+  rclcpp::TimerBase::SharedPtr timer_;  // timer variable
 };
+
+#endif
