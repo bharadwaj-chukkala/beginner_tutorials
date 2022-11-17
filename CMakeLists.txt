@@ -26,15 +26,14 @@ ament_target_dependencies(listener rclcpp std_msgs)
 add_executable(client src/client_node.cpp)
 ament_target_dependencies(client rclcpp std_msgs example_interfaces)
 
-# target_include_directories(publisher_member_function PUBLIC
-#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#   $<INSTALL_INTERFACE:include>)
-# target_compile_features(publisher_member_function PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+add_executable(minimal_param_node src/publisher_parameter_node.cpp)
+ament_target_dependencies(minimal_param_node rclcpp std_msgs)
 
 install(TARGETS
   talker
   listener
   client
+  minimal_param_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
