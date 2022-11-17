@@ -200,7 +200,7 @@ bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials/launch (Week10_HW) $
 [INFO] [minimal_param_node-1]: process has finished cleanly [pid 44475]
 ```
 
-#### rqt_console output
+#### [rqt_console output](https://github.com/bharadwaj-chukkala/beginner_tutorials/blob/Week10_HW/results/rqt_console_output.png)
 
 ### Static Code Analysis
 
