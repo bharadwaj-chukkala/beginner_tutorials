@@ -4,8 +4,7 @@
 
 ## Overview
 
-A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Publisher node with a service to add two integers.
-The service will be demonstrated using a service call for testing, which then can also be called to run when we run a client node in another terminal while running the publisher node.
+A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contains the implementation of a Publisher node with a service to add two integers. It contains a parameter node that manipulates a string output. This repository also contains of a launch file that will launch all nodes at the same instant. The service will be demonstrated using a service call for testing, which then can also be called to run when we run a client node in another terminal while running the publisher node. The parameter manipulation can be done by setting a new value to the parameter from another terminal.
 
 ## Contents
 
@@ -16,10 +15,12 @@ The service will be demonstrated using a service call for testing, which then ca
 ├── include
 │   └── beginner_tutorials
 │       ├── publisher_function.hpp
+│       ├── pub_param_function.hpp
 │       └── subscriber_function.hpp
+├── launch
+│   └── node_launcher.yaml
 ├── LICENSE
 ├── package.xml
-├── CMakeLists.txt
 ├── README.md
 ├── results
 │   ├── cppcheck.txt
@@ -27,7 +28,8 @@ The service will be demonstrated using a service call for testing, which then ca
 └── src
     ├── client_node.cpp
     ├── publisher_member_function.cpp
-    └── subscriber_member_function.cpp</pre>
+    ├── publisher_parameter_node.cpp
+    └── subscriber_member_function.cpp
 
 ## Assumptions
 
@@ -79,7 +81,7 @@ ros2 run beginner_tutorials client
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
 . install/setup.bash
-ros2 service call /add_two_ints_v2 example_interfaces/srv/AddTwoInts "{a: 1, b: 2}"
+ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 1, b: 2}"
 ```
 
 ### Using rqt_console to check the logged messages
@@ -87,7 +89,6 @@ ros2 service call /add_two_ints_v2 example_interfaces/srv/AddTwoInts "{a: 1, b: 
 ```
 ros2 run rqt_console rqt_console
 ```
----
 
 ### Testing Parameter Manipulation
 
@@ -105,8 +106,6 @@ ros2 param list
 ros2 param set /minimal_param_node my_parameter universe
 ```
 
----
-
 ### Running all nodes using a launch file
 
 ```
@@ -120,6 +119,7 @@ sometimes if this doesn't work you can do the following
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
 . install/setup.bash
+cd beginner_tutorials
 cd launch
 ros2 launch node_launcher.yaml
 ```
