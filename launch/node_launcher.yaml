@@ -1,0 +1,26 @@
+launch:
+# ROS Parameter
+- arg:
+    name: "my_parameter"
+    default: "world"
+# Publisher-Parameter Node
+- node:
+    pkg: "beginner_tutorials"
+    exec: "minimal_param_node"
+    param:
+    -
+      name: "my_parameter"
+      value: "$(var my_parameter)"
+
+# Talker Node
+- node:
+    pkg: "beginner_tutorials"
+    exec: "talker"
+
+- node:
+    pkg: "beginner_tutorials"
+    exec: "listener"
+
+- node:
+    pkg: "beginner_tutorials"
+    exec: "client"
