@@ -111,7 +111,7 @@ ros2 param set /minimal_param_node my_parameter universe
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
 . install/setup.bash
-ros2 launch beginner_tutorials node_launcher.yaml
+ros2 launch beginner_tutorials node_launcher.yaml my_parameter:=universe
 ```
 
 sometimes if this doesn't work you can do the following
