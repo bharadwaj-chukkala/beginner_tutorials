@@ -25,13 +25,21 @@
 
 #include <chrono>
 #include <memory>
+#include <string>
+#include <rclcpp/logging.hpp>
+
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "example_interfaces/srv/add_two_ints.hpp"
+#include "beginner_tutorials/srv/change_message.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_ros/static_transform_broadcaster.h"
 
 using namespace std::chrono_literals;
-using std::placeholders::_1;          // for use with binding Class member
-using std::placeholders::_2;          // callback function
+using REQ = const std::shared_ptr<beginner_tutorials
+                ::srv::ChangeMessage::Request>;
+using RESP = std::shared_ptr<beginner_tutorials
+                ::srv::ChangeMessage::Response>;
 
 /**
  * @brief Class (subclass of Node) and uses std::bind() to register a member function as a callback from the timer.
@@ -39,28 +47,15 @@ using std::placeholders::_2;          // callback function
  */
 class MinimalPublisher : public rclcpp::Node {
  public:
-    /**
-     * @brief Construct a new Minimal Publisher object
-     * 
-     */
     MinimalPublisher();
 
  private:
-  /**
-   * @brief function for timer callback
-   * 
-   */
-  void timer_callback();
-
-  /**
-   * @brief function to add two integers
-   * 
-   */
-  void add(const std::shared_ptr<example_interfaces::srv::AddTwoInts::Request>,
-          std::shared_ptr<example_interfaces::srv::AddTwoInts::Response>);
-  rclcpp::TimerBase::SharedPtr timer_;  // timer variable
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;  // publisher
-  rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr service;  // service
-  size_t count_;  // count variable
-  size_t invalid;  // a test variable
+    void timer_callback();
+    void change_message(REQ req, RESP resp);
+    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+    rclcpp::Service<beginner_tutorials::srv::ChangeMessage>::SharedPtr service_;
+    size_t count_;
+    std::string publish_message_;  // String to hold the message to be published
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_;
 };
