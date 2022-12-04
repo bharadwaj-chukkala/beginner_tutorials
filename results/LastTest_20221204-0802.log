@@ -1,0 +1,74 @@
+Start testing: Dec 04 03:02 EST
+----------------------------------------------------------
+1/2 Testing: test_beginner_tutorials
+1/2 Test: test_beginner_tutorials
+Command: "/usr/bin/python3.10" "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/test_beginner_tutorials.gtest.xml" "--package-name" "beginner_tutorials" "--output-file" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/ament_cmake_gtest/test_beginner_tutorials.txt" "--command" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_beginner_tutorials" "--gtest_output=xml:/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/test_beginner_tutorials.gtest.xml"
+Directory: /home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials
+"test_beginner_tutorials" start time: Dec 04 03:02 EST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials':
+ - /home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_beginner_tutorials --gtest_output=xml:/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/test_beginner_tutorials.gtest.xml
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from TaskTalker
+[ RUN      ] TaskTalker.test_num_publishers
+[       OK ] TaskTalker.test_num_publishers (10 ms)
+[----------] 1 test from TaskTalker (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+-- run_test.py: return code 0
+-- run_test.py: inject classname prefix into gtest result file '/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/test_beginner_tutorials.gtest.xml'
+-- run_test.py: verify result file '/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/test_beginner_tutorials.gtest.xml'
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"test_beginner_tutorials" end time: Dec 04 03:02 EST
+"test_beginner_tutorials" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: pep257
+2/2 Test: pep257
+Command: "/usr/bin/python3.10" "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml" "--package-name" "beginner_tutorials" "--output-file" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/ament_pep257/pep257.txt" "--command" "/opt/ros/humble/bin/ament_pep257" "--xunit-file" "/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml"
+Directory: /home/bharadwaj/tests for ros2/beginner_tutorials
+"pep257" start time: Dec 04 03:02 EST
+Output:
+----------------------------------------------------------
+-- run_test.py: invoking following command in '/home/bharadwaj/tests for ros2/beginner_tutorials':
+ - /opt/ros/humble/bin/ament_pep257 --xunit-file /home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml
+checking ./build/beginner_tutorials/ament_cmake_python/beginner_tutorials/beginner_tutorials/__init__.py
+checking ./build/beginner_tutorials/ament_cmake_python/beginner_tutorials/beginner_tutorials/srv/__init__.py
+checking ./build/beginner_tutorials/ament_cmake_python/beginner_tutorials/beginner_tutorials/srv/_change_message.py
+checking ./build/beginner_tutorials/ament_cmake_python/beginner_tutorials/setup.py
+checking ./build/beginner_tutorials/rosidl_generator_py/beginner_tutorials/__init__.py
+checking ./build/beginner_tutorials/rosidl_generator_py/beginner_tutorials/srv/__init__.py
+checking ./build/beginner_tutorials/rosidl_generator_py/beginner_tutorials/srv/_change_message.py
+checking ./install/_local_setup_util_ps1.py
+checking ./install/_local_setup_util_sh.py
+checking ./install/beginner_tutorials/local/lib/python3.10/dist-packages/beginner_tutorials/__init__.py
+checking ./install/beginner_tutorials/local/lib/python3.10/dist-packages/beginner_tutorials/srv/__init__.py
+checking ./install/beginner_tutorials/local/lib/python3.10/dist-packages/beginner_tutorials/srv/_change_message.py
+checking ./install/beginner_tutorials/share/beginner_tutorials/launch/system_bag_launcher.py
+checking ./launch/system_bag_launcher.py
+No problems found
+-- run_test.py: return code 0
+-- run_test.py: verify result file '/home/bharadwaj/tests for ros2/beginner_tutorials/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml'
+<end of output>
+Test time =   0.31 sec
+----------------------------------------------------------
+Test Passed.
+"pep257" end time: Dec 04 03:02 EST
+"pep257" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Dec 04 03:02 EST
+
+gtest =   0.17 sec*proc
+
+linter =   0.31 sec*proc
+
+pep257 =   0.31 sec*proc
+
