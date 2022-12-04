@@ -3,6 +3,15 @@ launch:
 - arg:
     name: "my_parameter"
     default: "world"
+
+- arg:
+    name: "queue_size"
+    default: "10.0"
+
+- arg:
+    name: "pub_freq"
+    default: "2.0"
+
 # Publisher-Parameter Node
 - node:
     pkg: "beginner_tutorials"
@@ -16,11 +25,20 @@ launch:
 - node:
     pkg: "beginner_tutorials"
     exec: "talker"
+    name: "talker"
+    param:
+    -
+      name: "pub_freq"
+      value: "$(var pub_freq)"
 
 - node:
     pkg: "beginner_tutorials"
     exec: "listener"
-
+    name: "listener"
+    param:
+    -
+      name: "queue_size"
+      value: "$(var queue_size)"
 - node:
     pkg: "beginner_tutorials"
     exec: "client"
