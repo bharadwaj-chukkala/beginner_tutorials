@@ -5,4 +5,4 @@ Done processing ./src/client_node.cpp
 Done processing ./src/publisher_member_function.cpp
 Done processing ./src/publisher_parameter_node.cpp
 Done processing ./src/subscriber_member_function.cpp
-Total errors found: 20
+Total errors found: 11
