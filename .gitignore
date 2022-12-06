@@ -49,3 +49,4 @@ install/
 
 # Python
 *.pyc
+example_interfaces/AddTwoInts.srv
