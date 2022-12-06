@@ -1,4 +1,4 @@
-# ROS2 Services, Logging and Launch files
+# ROS2 tf2, Unit Testing, Bag Files
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -11,25 +11,37 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 <pre>
 .
 ├── example_interfaces
-│   └── AddTwoInts.srv
 ├── include
 │   └── beginner_tutorials
 │       ├── publisher_function.hpp
 │       ├── pub_param_function.hpp
 │       └── subscriber_function.hpp
 ├── launch
-│   └── node_launcher.yaml
+│   ├── node_launcher.yaml
+│   └── system_bag_launcher.py
 ├── LICENSE
 ├── package.xml
 ├── README.md
 ├── results
 │   ├── cppcheck.txt
-│   └── cpplint.txt
-└── src
-    ├── client_node.cpp
-    ├── publisher_member_function.cpp
-    ├── publisher_parameter_node.cpp
-    └── subscriber_member_function.cpp</pre>
+│   ├── cpplint.txt
+│   ├── frames_2022-12-04_03.16.25.pdf
+│   ├── LastTest_20221204-0802.log
+│   └── rqt_console_output.png
+├── package_bag
+│   ├── metadata.yaml
+│   └── package_bag_0.db3
+├── src
+│   ├── client_node.cpp
+│   ├── publisher_member_function.cpp
+│   ├── publisher_parameter_node.cpp
+│   └── subscriber_member_function.cpp
+├── srv
+│   ├── AddTwoInts.srv
+│   └── ChangeMessage.srv
+└── test
+    ├── main.cpp
+    └── test_talker.cpp</pre>
 
 ## Assumptions
 
@@ -44,6 +56,11 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 * ```rclcpp```
 * ```std_msgs```
 * ```example_interfaces```
+* ```tf2```
+* ```tf2_ros```
+* ```rosbag2_cpp```
+* ```rosidl_default_generators```
+* ```geometry_msgs```
 
 ## Instructions to Build the Package
 
@@ -51,12 +68,108 @@ A Package built using ```colcon``` build as a part of ROS2 Tutorials. It contain
 git clone https://github.com/bharadwaj-chukkala/beginner_tutorials.git
 cd ..  
 rosdep install -i --from-path src --rosdistro humble -y
-colcon build --packages-select beginner_tutorials
+colcon build --symlink-install --packages-select beginner_tutorials
 ```
 
 ## Instructions to Run the Package
 
-### Publisher-Server and Client Implementation
+### tf2 broadcaster implementation
+
+#### Run the Talker Node
+
+In a terminal, navigate to your ROS2 workspace (```ros2_ws```) and source the setup files,
+```
+cd <path-to-ROS2-workspace>/ros2_ws
+. install/setup.bash
+ros2 run beginner_tutorials talker
+```
+
+In another terminal, source your ROS workspace as mentioned before and run:
+```
+ros2 run tf2_ros tf2_echo world talk
+```
+
+In a new terminal, navigate to your ROS2 workspace (```ros2_ws```) and source the setup files again and verify the TF frames using tf2_echo
+```
+ros2 run tf2_ros tf2_echo world talk
+```
+
+Open another terminal
+cd to the results directory and generate the frame output.
+```
+cd results
+ros2 run tf2_tools view_frames -o
+```
+
+The above command will generate a frames pdf which will open upon running the above command.
+
+
+#### Run the Level2 Gtest Implementation
+
+To view the gtest results for the ROS2 publisher and tf2 broadcaster, run the following in your ```ros_ws``` workspace,
+```
+colcon test --event-handlers console_direct+ --packages-select beginner_tutorials
+```
+
+You should see 1 gtest cases to pass (one for publisher and another for tf2 broadcaster)
+I have saved the test log in the ```results``` directory for your convenience.
+
+#### Recording a bag file
+
+To launch ROS2 bag and record all topics, run the following in a terminal sourced with your ROS workspace (```ros2_ws```) and change to the ```/results``` directory:
+```
+cd results
+ros2 launch beginner_tutorials system_bag_launcher.py record_all_topics:=true
+```
+
+here i have setup an argument in the launch file called, ```record_all_topics``` enables bag recording when set to ```true``` and disables when set to ```false```. Default value is set to ```true```.
+
+To disable bag recording, run
+```
+ros2 launch beginner_tutorials system_bag_launcher.py record_all_topics:=false
+```
+
+The bag file is saved with the filename ```package_bag_0.db3``` in the ```root``` directory, if recording is enabled.
+
+#### Bag File verification 
+To see ```/chatter``` topic messages were recorded, change to the ```package_bag``` and
+```
+cd package_bag
+ros2 bag info all_topics_bag
+```
+
+Alternatively, in one terminal run the ```listener``` using:
+```
+ros2 run beginner_tutorials listener
+```
+
+In another terminal, play the recorded bag files, from the ```package_bag``` directory:
+```
+ros2 bag play package_bag
+```
+
+## Results
+
+### Static Code Analysis
+
+#### cpplint
+
+Change to the root directory of the package, ```/beginner_tutorials```, and run:
+```
+cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/beginner_tutorials/*.hpp > ./results/cpplint.txt
+```
+The results of running ```cpplint``` can be found in ```/results/cpplint.txt```.
+
+#### cppcheck
+
+Change to the root directory of the package, ```/beginner_tutorials```, and run:
+```
+cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/beginner_tutorials/*.hpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
+```
+The results of running ```cppcheck``` can be found in ```/results/cppcheck.txt```.
+
+### Previous assignement resources
+If you want to check the previous asignment implementations, please look at the ``` release tags ``` and follow the instructions below.
 
 #### Run the Publisher-Server Node
 
@@ -111,11 +224,10 @@ ros2 param set /minimal_param_node my_parameter universe
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
 . install/setup.bash
-ros2 launch beginner_tutorials node_launcher.yaml
+ros2 launch beginner_tutorials node_launcher.yaml my_parameter:=universe
 ```
 
-sometimes if this doesn't work you can do the following
-
+sometimes if this doesn't work, you can do the following
 ```
 cd <path-to-ROS2-workspace>/ros2_ws
 . install/setup.bash
@@ -128,7 +240,8 @@ The launch file will launch all nodes at a time and manipulations can be run in 
 
 Enter ```Ctrl+C``` in each terminal to stop the nodes from spinning.
 
-## Results
+
+## Previous Results
 
 ### Outputs
 
@@ -202,20 +315,4 @@ bharadwaj@Alpha-Phoenix ~/tests for ros2/beginner_tutorials/launch (Week10_HW) $
 
 #### [rqt_console output](https://github.com/bharadwaj-chukkala/beginner_tutorials/blob/Week10_HW/results/rqt_console_output.png)
 
-### Static Code Analysis
 
-#### cpplint
-
-Change to the root directory of the package, ```/beginner_tutorials```, and run:
-```
-cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order ./src/*.cpp ./include/beginner_tutorials/*.hpp > ./results/cpplint.txt
-```
-The results of running ```cpplint``` can be found in ```/results/cpplint.txt```.
-
-#### cppcheck
-
-Change to the root directory of the package, ```/beginner_tutorials```, and run:
-```
-cppcheck --enable=all --std=c++17 ./src/*.cpp ./include/beginner_tutorials/*.hpp --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=unusedFunction --suppress=missingInclude --suppress=useInitializationList > results/cppcheck.txt
-```
-The results of running ```cppcheck``` can be found in ```/results/cppcheck.txt```.
